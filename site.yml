@@ -1,0 +1,18 @@
+---
+- name: Configurar servidor InnovaSys
+  hosts: webservers
+  become: yes
+  gather_facts: yes
+
+  roles:
+    - apache
+    - samba
+
+  tasks:
+    - name: Mostrar información de configuración
+      debug:
+        msg:
+          - "Servidor web configurado en http://{{ ansible_host }}"
+          - "Recurso Samba: //{{ ansible_host }}/{{ samba_share_name }}"
+          - "Usuario Samba: {{ samba_user }}"
+          - "Contraseña Samba: {{ samba_password }}"

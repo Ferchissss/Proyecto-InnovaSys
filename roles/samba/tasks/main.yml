@@ -1,0 +1,49 @@
+---
+# tasks file for roles/samba
+- name: Instalar Samba
+  apt:
+    name: samba
+    state: present
+    update_cache: yes
+
+- name: Crear grupo del sistema
+  group:
+    name: "{{ samba_group }}"
+    state: present
+
+- name: Crear usuario del sistema
+  user:
+    name: "{{ samba_user }}"
+    shell: /usr/sbin/nologin
+    groups: "{{ samba_group }}"
+    append: yes
+    state: present
+
+- name: Establecer contraseña de Samba para el usuario
+  shell: |
+    (echo "{{ samba_password }}"; echo "{{ samba_password }}") | smbpasswd -a -s "{{ samba_user }}"
+  args:
+    executable: /bin/bash
+
+- name: Crear directorio compartido
+  file:
+    path: "{{ samba_share_path }}"
+    state: directory
+    owner: "{{ samba_user }}"
+    group: "{{ samba_group }}"
+    mode: '2775'
+
+- name: Configurar Samba
+  template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart samba
+
+- name: Habilitar e iniciar servicio Samba
+  service:
+    name: smbd
+    state: started
+    enabled: yes

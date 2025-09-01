@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Intranet - {{ nombre_empresa }}</title>
+    <style>
+        /* Variables de personalización */
+        :root {
+            --fondo: {{ fondo_color | default('#f4f4f4') }};
+            --caja-fondo: {{ caja_color | default('#ffffff') }};
+            --titulo-color: {{ titulo_color | default('#2c3e50') }};
+            --texto-color: {{ texto_color | default('#555555') }};
+            --borde-radio: {{ borde_radio | default('10px') }};
+            --sombra: {{ sombra | default('0 4px 8px rgba(0,0,0,0.1)') }};
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: var(--fondo);
+        }
+
+        .container {
+            background: var(--caja-fondo);
+            padding: 30px;
+            border-radius: var(--borde-radio);
+            box-shadow: var(--sombra);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--titulo-color);
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: var(--texto-color);
+            margin: 6px 0;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenidos a la Intranet de <span class="highlight">{{ nombre_empresa }}</span></h1>
+        <p>{{ mensaje_bienvenida | default("Sistema automatizado con Ansible") }}</p>
+        <p>Fecha de despliegue: <span class="highlight">{{ ansible_date_time.iso8601 }}</span></p>
+        <p>Hostname del servidor: <span class="highlight">{{ ansible_hostname }}</span></p>
+        <div class="footer">
+            <p>Usuario de despliegue: {{ ansible_user_id }}</p>
+            <p>Rol del servidor: {{ rol_servidor | default("Servidor Interno") }}</p>
+        </div>
+    </div>
+</body>
+</html>
