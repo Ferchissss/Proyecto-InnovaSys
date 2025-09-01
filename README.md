@@ -11,17 +11,29 @@ Este proyecto automatiza la configuración de un servidor Ubuntu 24.04 para la s
 - Acceso SSH configurado entre nodos
 
 ## Estructura del Proyecto
+
 ProyectoInnovaSys/
+
 ├── ansible.cfg
+
 ├── inventories/
+
 │ └── production
+
 ├── group_vars/
+
 │ └── all/
+
 │ └── vars.yml
+
 ├── roles/
+
 │ ├── apache/
+
 │ └── samba/
+
 ├── site.yml
+
 └── README.md
 
 ## Variables Configurables
@@ -59,7 +71,7 @@ Configuración exitosa:
 ## 🔍 SOLUCIÓN DE PROBLEMAS COMUNES
 
 ### Si falla la conexión SSH:
-```bash
+
 # Verificar conexión
 
 ssh -v operador@192.168.10.100
