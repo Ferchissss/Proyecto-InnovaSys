@@ -98,19 +98,3 @@ bash
 ssh operador@192.168.10.100
 
 sudo systemctl status smbd
-
-## Requisitos cumplidos
-
-Apache instalado y servicio ejecutándose
-
-Página web personalizada accesible
-
-Samba instalado y servicio ejecutándose
-
-Directorio compartido creado con permisos correctos
-
-Usuario y grupo creados correctamente
-
-Recurso Samba accesible con credenciales
-
-Playbook es idempotente (ejecuciones posteriores no hacen cambios)
