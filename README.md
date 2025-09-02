@@ -7,8 +7,16 @@ Este proyecto automatiza la configuración de un servidor Ubuntu 24.04 para la s
 
 ## Requisitos
 - Nodo de control: Linux Lite con Ansible instalado
-- Nodo gestionado: Ubuntu Server 24.04
+- Nodo gestionado: Ubuntu Server 24.04 accesible por SSH
 - Acceso SSH configurado entre nodos
+    - Generar clave SSH (si no existe)
+    ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ""
+    - Copiar clave al servidor gestionado
+    ssh-copy-id -i ~/.ssh/id_ed25519.pub operador@192.168.10.100
+    - Probar conexión
+    ssh operador@192.168.10.100
+    exit
+- Puerto 80 libre en Ubuntu
 
 ## Estructura del Proyecto
 
@@ -48,8 +56,8 @@ ProyectoInnovaSys/
 ```bash
 cd ProyectoInnovaSys
 
-ansible-playbook site.yml
-
+ansible-playbook -i inventories/production site.ym
+```  
 ## Verificación
 
 Servidor Web: http://192.168.10.100
@@ -60,28 +68,11 @@ Usuario: devuser1
 
 Contraseña: Innova.2025
 
-Configuración exitosa:
-
-✅ Servidor web Apache en http://192.168.10.100
-
-✅ Recurso Samba en //192.168.10.100/Proyectos
-
-✅ Usuario: devuser1, Contraseña: Innova.2025
-
 ## 🔍 SOLUCIÓN DE PROBLEMAS COMUNES
 
-### Si falla la conexión SSH:
+```bash
+### Si falla la instalación de paquetes:
 
-# Verificar conexión
-
-ssh -v operador@192.168.10.100
-
-# Regenerar claves si es necesario
-ssh-keygen -R 192.168.10.100
-
-Si falla la instalación de paquetes:
-
-bash
 # Actualizar cache de paquetes
 
 sudo apt update
@@ -92,9 +83,9 @@ ping 8.8.8.8
 
 Si Samba no funciona:
 
-bash
 # Verificar servicio Samba en el servidor
 
 ssh operador@192.168.10.100
 
 sudo systemctl status smbd
+```  
