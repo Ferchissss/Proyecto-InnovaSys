@@ -55,7 +55,6 @@ ProyectoInnovaSys/
 ## Ejecución
 ```bash
 cd ProyectoInnovaSys
-
 ansible-playbook -i inventories/production site.ym
 ```  
 ## Verificación
@@ -71,21 +70,15 @@ Contraseña: Innova.2025
 ## 🔍 SOLUCIÓN DE PROBLEMAS COMUNES
 
 ```bash
-### Si falla la instalación de paquetes:
-
+# Si falla la instalación de paquetes:
 # Actualizar cache de paquetes
-
 sudo apt update
 
 # Verificar acceso a internet
-
 ping 8.8.8.8
-
 Si Samba no funciona:
 
 # Verificar servicio Samba en el servidor
-
 ssh operador@192.168.10.100
-
 sudo systemctl status smbd
 ```  
